@@ -1,0 +1,14 @@
+#
+# $Id: Makefile.in,v cf4fd7927017 2009/09/11 16:26:32 nieves $
+#
+@include@ @q@../Makefile.inc@q@
+
+SOURCES =	grads.tcl pkgIndex.tcl
+
+all: ${SOURCES}
+
+install: all
+	install -m 0644 ${SOURCES} ${MYLIBDIR}
+
+clean:
+	rm -f *~ Makefile
