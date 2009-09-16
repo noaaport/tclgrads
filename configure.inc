@@ -1,5 +1,5 @@
 #
-# $Id: configure.inc,v cf4fd7927017 2009/09/11 16:26:32 nieves $
+# $Id: configure.inc,v 0d8da05643bd 2009/09/16 13:14:22 nieves $
 #
 
 # defaults (FreeBSD)
@@ -8,7 +8,7 @@ Q='"'
 PREFIX=usr/local
 
 INSTALL=install
-TCLSH=/usr/local/bin/tclsh8.4
+TCLSH=/usr/local/bin/tclsh8.5
 
 os=`uname`
 [ $os = Linux ] && flavor=unknown
