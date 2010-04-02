@@ -1,5 +1,5 @@
 #
-# $Id: configure.inc,v 0d8da05643bd 2009/09/16 13:14:22 nieves $
+# $Id: configure.inc,v 65db197f34e3 2010/04/02 00:57:17 nieves $
 #
 
 # defaults (FreeBSD)
@@ -8,7 +8,7 @@ Q='"'
 PREFIX=usr/local
 
 INSTALL=install
-TCLSH=/usr/local/bin/tclsh8.5
+TCLSH=/usr/local/bin/tclsh8.6
 
 os=`uname`
 [ $os = Linux ] && flavor=unknown
@@ -47,6 +47,10 @@ case $os in
 	Q=
 	PREFIX=usr
 	TCLSH=/usr/bin/tclsh
+	if [ $flavor = debian ]
+	then
+	   TCLSH=/usr/bin/tclsh8.5
+	fi
 	;;
 esac
 
