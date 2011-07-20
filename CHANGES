@@ -1,5 +1,5 @@
 #
-# $Id: CHANGES,v cf4fd7927017 2009/09/11 16:26:32 nieves $
+# $Id: CHANGES,v adc633e9279d 2011/07/20 01:28:54 jfnieves $
 #
 
 * Fri Sep 19 09:01:14 AST 2008
@@ -9,3 +9,6 @@
   - Revised ::grads::expr... functions (and corresponding gradsu::getval
     functions) to be able to evaluate several expressions (e1|e2|...)
     in one call. 
+
+* Tue Jul 19 20:56:32 AST 2011
+ - Revised to eliminate dependence on Expect.

@@ -7,6 +7,7 @@ Standards-Version: 3.7.2
 
 Package: tclgrads
 Architecture: all
+Depends: tcllib
 Description: Library for running GrADS programs from Tcl scripts.
  TclGrADS is a library of Tcl procedures for executing GrADS scripts
  within a Tcl script.

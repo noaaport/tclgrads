@@ -1,5 +1,5 @@
-tclgrads (0.1.r2-1) stable; urgency=low
+tclgrads (0.2.2r-1) stable; urgency=low
 
   * Initial debian package release
 
- -- Jose F Nieves <nieves@ltp.upr.clu.edu>  Sat, 10 Jan 2009 23:46:25 -0400
+ -- Jose F Nieves <nieves@ltp.upr.clu.edu>  Tue, 19 Jul 2011 20:47:49 -0400

@@ -1,5 +1,5 @@
 #
-# $Id: pkginfo.mk,v cf4fd7927017 2009/09/11 16:26:32 nieves $
+# $Id: pkginfo.mk,v adc633e9279d 2011/07/20 01:28:54 jfnieves $
 #
 
 # This is read by the (rpm) makefile to produce the <name>-<version>.spec
@@ -19,12 +19,12 @@ Group = Development/Libraries
 Source = http://www.noaaport.net/software/${pkgsrc_name}/src/${pkgsrc_name}.tgz
 BuildArchitectures = noarch
 BuildRoot = ${rpmroot}/BUILD/${pkgsrc_name}/build/rpm/pkg
-Requires = expect tcllib
+Requires = tcllib
 
 ifeq (${FLAVOR}, opensuse)
 rpmroot = /usr/src/packages
 endif
 
 ifeq (${FLAVOR}, centos)
-Requires =  expect
+Requires =
 endif

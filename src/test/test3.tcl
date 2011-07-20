@@ -1,4 +1,4 @@
-#!/usr/local/bin/tclsh8.4
+#!/usr/local/bin/tclsh8.6
 
 #lappend auto_path "/usr/local/lib/nbsp/tcl/grads";
 lappend auto_path "../";

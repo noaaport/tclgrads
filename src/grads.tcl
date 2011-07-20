@@ -1,5 +1,5 @@
 #
-# $Id: grads.tcl,v cf4fd7927017 2009/09/11 16:26:32 nieves $
+# $Id: grads.tcl,v adc633e9279d 2011/07/20 01:28:54 jfnieves $
 #
 # Copyright (c) 2008 Jose F. Nieves <nieves@ltp.upr.clu.edu>
 #
@@ -15,9 +15,8 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-package provide grads 1.0;
+package provide grads 1.1;
 
-package require Expect;
 package require cmdline;
 package require textutil;
 package require struct::matrix;
@@ -33,10 +32,44 @@ proc ::grads::_init {} {
 
     variable grads;
 
+    set grads(_expect_output_buffer) "";   # all output up to (and including)
+                                           # the matching line
+
     set grads(output) "";
     set grads(output_list) [list];
     set grads(output_rc) 0;
     set grads(output_value) "";
+}
+
+proc ::grads::_expect {} {
+
+    variable grads;
+
+    set expect_output_buffer [list];
+
+    set line "";
+    while {[regexp $grads(reply_end) $line] == 0} {
+        set r [gets $grads(F) line];
+	lappend expect_output_buffer $line;
+    }
+
+    set grads(_expect_output_buffer) [join $expect_output_buffer "\n"];
+}
+
+proc ::grads::_send {s} {
+
+    variable grads;
+
+    set status [catch {
+	puts $grads(F) $s;
+	flush $grads(F);
+    } errmsg];
+
+    if {$status != 0} {
+	return -code error $errmsg;
+    }
+
+    return 0;
 }
 
 proc ::grads::init {args} {
@@ -47,31 +80,34 @@ proc ::grads::init {args} {
     set optlist {{portrait} {undef.arg "?"}};
 
     _init;
-    log_user 0;
 
-    set grads(options) "-b -u";
-    set grads(prompt) {</IPC>};
+    set grads(options) [list -b -u];
+    set grads(reply_start) {<IPC>};
+    set grads(reply_end) {</IPC>};
 
     array set option [::cmdline::getoptions args $optlist $usage];
     set grads(undef) $option(undef);
-    if {$option(portrait) == 0} {
-	append grads(options) " -l";
+    if {$option(portrait) == 1} {
+	lappend grads(options) "-p";
     } else {
-	append grads(options) " -p";
+	lappend grads(options) "-l";
     }
     
     set grads(output_value) $grads(undef);
 
+    set cmd [concat "|grads" $grads(options)];
     set status [catch {
-	spawn grads $grads(options);
+	set F [::open $cmd r+];
+	fconfigure $F -buffering line -translation binary -encoding binary;
     } errmsg];
+
     if {$status != 0} {
 	set grads(output) $errmsg;
 	return -code error $grads(output);
     }
 
-    set grads(id) $spawn_id;
-    expect $grads(prompt);
+    set grads(F) $F;
+    _expect;		# expect the reply_end </IPC>
 
     return 0;
 }
@@ -80,11 +116,14 @@ proc ::grads::end {} {
 
     variable grads;
 	
-    exec quit;
-
     set status [catch {
-	exp_wait;	# instead of plain "wait" to avoid conflict with tclx
+	exec quit;
+	_expect;
     } errmsg];
+
+    # Any error here is ignored
+    catch {close $grads(F)};
+
     if {$status != 0} {
 	return -code error $errmsg;
     }
@@ -95,41 +134,27 @@ proc ::grads::end {} {
 proc ::grads::exec {args} {
 
     variable grads;
-    global expect_out;
 
     set cmd [lindex $args 0];
-    append s [join $args] "\n";
+    append s [join $args] " ";
 
-    set spawn_id $grads(id);
     set status [catch {
-	send $s;
+	_send $s;
     } errmsg];
+
     if {$status != 0} {
 	set grads(output) $errmsg;
 	return -code error $grads(output);
     }
+
     if {$cmd eq "quit"} {
 	return 0;
     }
 
-    # Match line by line in order to collect all the lines independently
-    # of the expect output buffer size (Libes p. 145). Since we are using
-    # </IPC> as the "prompt" while it is not a real prompt in the sense
-    # that it is followed by the "\n", we have to look for it in the
-    # same line that matches the "\n" pattern .
+    _expect;
 
-    set output "";
-    expect {
-        -re {\n} {
-            append output $expect_out(buffer) "\n";
-	    if {[regexp $grads(prompt) $expect_out(buffer)] == 0} {
-		exp_continue;
-	    }
-        }
-    }
-
-    if {[regexp {<IPC>[^\n]*\n(.*)<RC>\s*(\d+)\s*</RC>} $output \
-	     match s1 s2]} {
+    if {[regexp {<IPC>[^\n]*\n(.*)<RC>\s*(\d+)\s*</RC>} \
+	     $grads(_expect_output_buffer) match s1 s2]} {
 	set grads(output) [string trim $s1];
 	set grads(output_rc) $s2;
     } else {
@@ -227,7 +252,7 @@ proc ::grads::get_dimensions {array_name} {
 	set a(zsize) $vz;
 	set a(tsize) $vt;
     } else {
-	return -code error "Error parsing output buffer.";
+	return -code error "Error parsing output buffer: $grads(output)";
     }
 
     exec q dims;

@@ -1,4 +1,4 @@
 #
-# $Id: pkgIndex.tcl,v cf4fd7927017 2009/09/11 16:26:32 nieves $
+# $Id: pkgIndex.tcl,v adc633e9279d 2011/07/20 01:28:54 jfnieves $
 #
-package ifneeded grads 1.0 [list source [file join $dir grads.tcl]]
+package ifneeded grads 1.1 [list source [file join $dir grads.tcl]]

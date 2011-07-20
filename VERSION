@@ -1,5 +1,5 @@
 #
-# $Id: VERSION,v cf4fd7927017 2009/09/11 16:26:32 nieves $
+# $Id: VERSION,v adc633e9279d 2011/07/20 01:28:54 jfnieves $
 #
 
 # The definitions here should appear without spaces around the '='
@@ -10,6 +10,6 @@
 # r = release
 name=tclgrads
 branch=0.2
+releasenumber=2
 releaselevel=r
-releasenumber=1
-version=${branch}.${releaselevel}${releasenumber}
+version=${branch}.${releasenumber}${releaselevel}

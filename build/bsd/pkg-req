@@ -1,6 +1,6 @@
 #!/bin/sh
 
-requires="expect tcllib"
+requires="tcllib"
 
 # so that FreeBSD runs it only once 
 name=$1
