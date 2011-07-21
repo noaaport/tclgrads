@@ -10,9 +10,6 @@ cvs -d :ext:nieves@opengrads.cvs.sourceforge.net:/cvsroot/opengrads \
 checkout
 ========
 cvs -d :ext:nieves@opengrads.cvs.sourceforge.net:/cvsroot/opengrads \
-    co -P contrib/interface/tcl
-
-cvs -d :ext:nieves@opengrads.cvs.sourceforge.net:/cvsroot/opengrads \
     co -P tclgrads
 -
 wiki

@@ -1,12 +1,11 @@
 #
-# $Id: INSTALL,v cf4fd7927017 2009/09/11 16:26:32 nieves $
+# $Id: INSTALL,v 77c38ddd9317 2011/07/21 01:22:38 jfnieves $
 #
 
 - Requirements
 
   The following are required and must be installed:
 
-    Expect
     Tcllib
 
 - Installing from Packages
