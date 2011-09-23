@@ -1,5 +1,5 @@
 #
-# $Id: grads.tcl,v adc633e9279d 2011/07/20 01:28:54 jfnieves $
+# $Id: grads.tcl,v fd2858514dbf 2011/09/23 02:34:53 jfnieves $
 #
 # Copyright (c) 2008 Jose F. Nieves <nieves@ltp.upr.clu.edu>
 #
@@ -98,7 +98,14 @@ proc ::grads::init {args} {
     set cmd [concat "|grads" $grads(options)];
     set status [catch {
 	set F [::open $cmd r+];
-	fconfigure $F -buffering line -translation binary -encoding binary;
+	#
+	# In SL (6.1), gfs_161.tcl hangs if used with the binary options.
+	# (FreeBSD and Ubuntu do not have the problem). Anyway the output
+	# from Grads is pure text so the correct use should be without them.
+	#
+	# fconfigure $F -buffering line -translation binary -encoding binary;
+	#
+	fconfigure $F -buffering line;
     } errmsg];
 
     if {$status != 0} {
