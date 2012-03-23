@@ -1,12 +1,12 @@
 #
-# $Id: tclgrads.wiki,v cf4fd7927017 2009/09/11 16:26:32 nieves $
+# $Id: tclgrads.wiki,v b80113343627 2012/03/23 01:08:34 nieves $
 #
 #  http://opengrads.org/wiki/index.php?title=TCL_Interface_to_GrADS
 
 {{rightTOC}}
 
 Tclgrads is a library of procedures for executing commands in GrADS
-from a Tcl script. It uses [http://expect.nist.gov Expect] to
+from a Tcl script. It uses the facilities of the Tcl language to
 send commands to GrADS and parse its output, making available
 the extensive processing capabilities of [http://www.tcl.tk Tcl] to
 manipulate the results of the commands. In this sense,
@@ -15,8 +15,7 @@ this interface is analaogous to the
 interface to GrADS.
 
 === Requirements ===
-Tclgrads requires [http://expect.nis.gov Expect],
-[http://www.tcl.tk/software/tcllib Tcllib],
+Tclgrads requires [http://www.tcl.tk/software/tcllib Tcllib],
 and [http://grads.iges.org/grads GrADS] (Version 1.9.0 or later) or
 any OpenGRADS release.
 

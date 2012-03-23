@@ -1,7 +1,7 @@
-$Id: RELEASE_NOTES,v adc633e9279d 2011/07/20 01:28:54 jfnieves $
+$Id: RELEASE_NOTES,v b80113343627 2012/03/23 01:08:34 nieves $
 
 TclGrads is a library of Tcl procedures to execute GrADS commands
-from a Tcl script.  Tclgrads uses the tcl open command to connect,
+from a Tcl script.  Tclgrads uses the Tcl open command to connect,
 send the commands to GrADS and parse its output,
 and it requires some of the modules of the Tcllib. There are no other
 requirements, and in particular it is a pure Tcl library so there is

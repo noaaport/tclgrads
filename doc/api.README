@@ -1,5 +1,5 @@
 #
-# $Id: api.README,v cf4fd7927017 2009/09/11 16:26:32 nieves $
+# $Id: api.README,v b80113343627 2012/03/23 01:08:34 nieves $
 #
 
 NAME
@@ -57,8 +57,8 @@ SYNOPSIS
 DESCRIPTION
 
 	This package provides a set of Tcl procedures that can be used
-	to execute GrADS commands from Tcl scripts. It uses Expect
-	to send the commands to GrADS and parse its output.
+	to execute GrADS commands from Tcl scripts. It uses the Tcl open
+	command to connect, send the commands to GrADS and parse its output.
 
 proc grads::init [-portrait] [-undef <symbol>]	
 	Defaults: "-l -b -u" -undef "?"
