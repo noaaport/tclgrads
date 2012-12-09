@@ -1,7 +1,7 @@
 #
-# $Id: grads.tcl,v fd2858514dbf 2011/09/23 02:34:53 jfnieves $
+# $Id: grads.tcl,v 8bea115fca79 2012/12/09 00:15:43 nieves $
 #
-# Copyright (c) 2008 Jose F. Nieves <nieves@ltp.upr.clu.edu>
+# Copyright (c) 2008 Jose F. Nieves <nieves@ltp.uprrp.edu>
 #
 # Permission to use, copy, modify, and distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -21,7 +21,7 @@ package require cmdline;
 package require textutil;
 package require struct::matrix;
 
-namespace eval grads {
+namespace eval ::grads {
 
     variable grads;
     
@@ -713,7 +713,7 @@ proc ::grads::_eval_expr_list {expr_list {sep ","}} {
 #
 # Higher level utility functions
 #
-namespace eval gradsu {}
+namespace eval ::gradsu {}
 
 proc ::gradsu::display {args} {
 
